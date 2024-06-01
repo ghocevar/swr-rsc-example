@@ -1,7 +1,8 @@
-import { Pokemon } from "./pokemon";
+import { Pokemon } from './pokemon';
 
-import { SWRConfig } from "swr";
-import { getPokemon } from "./data";
+import { SWRConfig } from 'swr';
+import { getPokemon } from './data';
+import { Suspense } from 'react';
 
 export default function Page() {
   return (
@@ -11,14 +12,16 @@ export default function Page() {
           // Note that there is no `await` here,
           // so it only blocks rendering of components that
           // actually rely on this data.
-          pikachu: getPokemon("pikachu"),
+          pikachu: getPokemon('pikachu'),
         },
       }}
     >
       <main>
         <h1>Pokemon Info</h1>
         {/* You can have a Suspense boundary here for the loading state */}
-        <Pokemon />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Pokemon />
+        </Suspense>
       </main>
     </SWRConfig>
   );
